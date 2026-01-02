@@ -1,12 +1,13 @@
 def load_tasks(tasks):
-        print("tasks_id|tasks|status")
-        for tasks_id,(tasks,status) in tasks.items():
-            print(f"{tasks_id}|{tasks}|{status}")
+    print("tasks_id|tasks|status")
+    for tasks_id,(tasks,status) in tasks.items():
+        print(f"{tasks_id}|{tasks}|{status}")
 
-def add_tasks():
-    return
+def add_tasks(tasks):
+    task_add = input("Enter the Task: ")
+    tasks.update({len(tasks):[task_add,"Not Done"]})
 
-def delete_task(id):
+def delete_task(tasks):
     return 
 
 def update_task():
@@ -23,7 +24,7 @@ def main():
     if choice > 4 and choice <= 0:
         print(f"You have selected option {choice}.")
         if choice == 1:
-            add_tasks()
+            add_tasks(tasks)
         elif choice == 2:
             load_tasks(tasks)
         elif choice == 3:
