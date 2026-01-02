@@ -1,11 +1,16 @@
+ # Storing tasks
+tasks = {}
+
 def load_tasks(tasks):
     print("tasks_id|tasks|status")
     for tasks_id,(tasks,status) in tasks.items():
         print(f"{tasks_id}|{tasks}|{status}")
+    main()
 
 def add_tasks(tasks):
     task_add = input("Enter the Task: ")
     tasks.update({len(tasks):[task_add,"Not Done"]})
+    main()
 
 def delete_task(tasks):
     return 
@@ -21,7 +26,7 @@ def main():
     "4. Update Task\n"
     "5. Exit\n")
     choice = int(input("Enter the number: "))
-    if choice > 4 and choice <= 0:
+    if choice >=1 and choice <= 5:
         print(f"You have selected option {choice}.")
         if choice == 1:
             add_tasks(tasks)
@@ -38,10 +43,7 @@ def main():
         print("Invalid option selected. Please try again.")
         main()  # Restart the process for valid input
 
-    # Storing tasks
-    tasks = {
-
-    }
+   
     
 if __name__ == "__main__":
     main()
