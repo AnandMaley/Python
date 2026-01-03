@@ -1,19 +1,21 @@
  # Storing tasks
 tasks = {}
 
-def load_tasks(tasks):
+def load_tasks():
     print("tasks_id|tasks|status")
     for tasks_id,(tasks,status) in tasks.items():
         print(f"{tasks_id}|{tasks}|{status}")
     main()
 
-def add_tasks(tasks):
+def add_tasks():
     task_add = input("Enter the Task: ")
     tasks.update({len(tasks):[task_add,"Not Done"]})
     main()
 
-def delete_task(tasks):
-    return 
+def delete_task():
+    load_tasks()
+    id = input("Enter the Id of the Task you want to DELETE: ")
+    tasks.pop(id) 
 
 def update_task():
     return
@@ -29,12 +31,11 @@ def main():
     if choice >=1 and choice <= 5:
         print(f"You have selected option {choice}.")
         if choice == 1:
-            add_tasks(tasks)
+            add_tasks()
         elif choice == 2:
-            load_tasks(tasks)
+            load_tasks()
         elif choice == 3:
-            id = input("Enter the Id of the Task you want to DELETE: ")
-            delete_task(id)
+            delete_task()
         elif choice == 4:
             update_task()
         else:
