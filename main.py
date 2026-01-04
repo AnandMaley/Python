@@ -28,13 +28,13 @@ def update_task():
     tasks.update({id:[upts[0],upts[1]]})
 
 def main():
-    print("Enter the Number and Press ENTER to perform the task:\n" \
-    "1. Add Task\n"
-    "2. View Tasks\n"
-    "3. Delete Task\n"
-    "4. Update Task\n"
-    "5. Exit\n")
     while True:
+        print("Enter the Number and Press ENTER to perform the task:\n" \
+        "1. Add Task\n"
+        "2. View Tasks\n"
+        "3. Delete Task\n"
+        "4. Update Task\n"
+        "5. Exit\n")
         choice = int(input("Enter the number: "))
         if choice >=1 and choice <= 5:
             print(f"You have selected option {choice}.")
