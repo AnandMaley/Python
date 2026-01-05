@@ -29,3 +29,16 @@ ts[1] = "Done"
 d.update({id:[ts[0],ts[1]]})
 print("New :",d)
 
+# file handling demo
+
+# with open("D:\Projects\Python\demo.txt","r") as file:
+#     x = file.read()
+#     print(x)
+
+with open("D:\Projects\Python\\tasks.txt","r") as file:
+    x = file.read()
+    print(x)
+
+# with open("D:\Projects\Python\demo2.txt","w") as file:
+#     file.write(x)
+

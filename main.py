@@ -6,15 +6,22 @@ def load_tasks():
     print("tasks_id|tasks|status")
     for tasks_id,(tn,status) in tasks.items():
         print(f"{tasks_id}|{tn}|{status}")
+    # with open("D:\Projects\Python\\tasks.txt","r") as file:
+    #     x = file.read()
+    #     print(x)
 
 def add_tasks():
     task_add = input("Enter the Task: ")
     tasks.update({len(tasks):[task_add,"Not Done"]})
+    # with open("D:\Projects\Python\\tasks.txt","w") as file:
+    #     file.write(str(tasks))
 
 def delete_task():
     load_tasks()
     id = int(input("Enter the Id of the Task you want to DELETE: "))
     tasks.pop(id) 
+    # with open("D:\Projects\Python\\tasks.txt","w") as file:
+    #     file.write(str(tasks))
 
 def update_task():
     load_tasks()
@@ -26,6 +33,8 @@ def update_task():
     if col == 2:
         upts[col-1] = input("Enter the Status :")
     tasks.update({id:[upts[0],upts[1]]})
+    # with open("D:\Projects\Python\\tasks.txt","w") as file:
+    #     file.write(str(tasks))
 
 def main():
     while True:
