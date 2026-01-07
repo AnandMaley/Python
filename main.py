@@ -1,12 +1,21 @@
+import json
+import os
+
 def save_tasks(tasks):
-    with open("D:\Projects\Python\\tasks.txt","w") as file:
-        file.write(str(tasks))
+    # with open("D:\Projects\Python\\tasks.txt","w") as file:
+    #     file.write(str(tasks))
+    path = "D:\Projects\Python\\tasks.json"
+    with open(path, "w") as file:
+        json.dump(tasks, file, indent=4)
 
 def load_tasks():
-    # Storing tasks
-    with open("D:\Projects\Python\\tasks.txt","r") as file:
-        tasks = file.read()
-        return dict(tasks)
+    path = "D:\Projects\Python\\tasks.json"
+    if not os.path.exists(path):
+        return {}
+    if os.path.getsize(path) == 0:
+        return {}
+    with open(path, "r") as file:
+        return json.load(file)
 
 def list_tasks(tasks):
     print("tasks_id|tasks|status")
@@ -15,7 +24,8 @@ def list_tasks(tasks):
 
 def add_tasks(tasks):
     task_add = input("Enter the Task: ")
-    tasks.update({len(tasks):[task_add,"Not Done"]})
+    id = max(tasks.keys()) + 1
+    tasks.update({id:[task_add,"Not Done"]})
 
 def delete_task(tasks):
     id = int(input("Enter the Id of the Task you want to DELETE: "))
