@@ -4,12 +4,12 @@ import os
 def save_tasks(tasks):
     # with open("D:\Projects\Python\\tasks.txt","w") as file:
     #     file.write(str(tasks))
-    path = "D:\Projects\Python\\tasks.json"
+    path = os.path.join("D:", "Projects", "Python", "tasks.json")
     with open(path, "w") as file:
         json.dump(tasks, file, indent=4)
 
 def load_tasks():
-    path = "D:\Projects\Python\\tasks.json"
+    path = os.path.join("D:", "Projects", "Python", "tasks.json")
     if not os.path.exists(path):
         return {}
     if os.path.getsize(path) == 0:
@@ -24,18 +24,29 @@ def list_tasks(tasks):
 
 def add_tasks(tasks):
     task_add = input("Enter the Task: ")
-    id = max(tasks.keys()) + 1
+    id = int(max(tasks.keys())) + 1 if tasks else 1
     tasks.update({id:[task_add,"Not Done"]})
+    save_tasks(tasks)
 
 def delete_task(tasks):
     id = int(input("Enter the Id of the Task you want to DELETE: "))
-    tasks.pop(id)
-
+    if id in tasks:
+        tasks.pop(id)
+        save_tasks(tasks)
+    else:
+        print("Task Id not found.")
+    
 def update_task(tasks):
     list_tasks(tasks)
     id = int(input("Enter the Id of the Task you want to UPDATE: "))
+    if id not in tasks:
+        print("Task Id not found.")
+        return
     upts = tasks.get(id)
     col = int(input("Enter 1 for Updating Task or 2 for Updating Status :"))
+    if col < 1 or col > 2:
+        print("Invalid column choice.")
+        return
     if col == 1:
         upts[col-1] = input("Enter the Task :")
     if col == 2:
@@ -45,6 +56,7 @@ def update_task(tasks):
 
 def main():
     tasks = load_tasks()
+    int(tasks.keys()) if tasks else 0
     while True:
         print("Enter the Number and Press ENTER to perform the task:\n" \
         "1. Add Task\n"
@@ -67,8 +79,7 @@ def main():
                 save_tasks(tasks)
                 break
         else:
-            print("Invalid option selected. Please try again.")
-            main()  # Restart the process for valid input
+            print("Invalid choice. Please enter a number between 1 and 5.")
 
 if __name__ == "__main__":
     main()
