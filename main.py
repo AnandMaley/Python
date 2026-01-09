@@ -56,7 +56,7 @@ def update_task(tasks):
 
 def main():
     tasks = load_tasks()
-    int(tasks.keys()) if tasks else 0
+    tasks = {int(k): v for k, v in tasks.items()}
     while True:
         print("Enter the Number and Press ENTER to perform the task:\n" \
         "1. Add Task\n"
@@ -64,7 +64,11 @@ def main():
         "3. Delete Task\n"
         "4. Update Task\n"
         "5. Exit\n")
-        choice = int(input("Enter the number: "))
+        choice = input("Enter the number: ")
+        if not choice.isdigit():
+            print("Invalid input. Please enter a number between 1 and 5.")
+            continue
+        choice = int(choice)
         if choice >=1 and choice <= 5:
             print(f"You have selected option {choice}.")
             if choice == 1:

@@ -1,0 +1,238 @@
+Project 1 Documentation
+File-Based Task Tracker (CLI)
+Project Objective
+
+Build a command-line task tracker using Python that:
+
+Persists data across runs
+
+Supports CRUD operations
+
+Handles invalid input safely
+
+Uses structured file storage
+
+Final Outcome
+
+Functional CLI task manager
+
+Persistent storage using JSON
+
+Safe handling of user input and edge cases
+
+Clear separation of responsibilities
+
+1. Key Mistakes Made (And Why They Matter)
+1.1 Treating Files Like Variables
+
+Mistake
+
+file.write(str(tasks))
+
+
+Why it was wrong
+
+str() output is not a stable data format
+
+Impossible to parse reliably
+
+Tightly coupled to Python internals
+
+Lesson
+Files require explicit structure. Serialization is a real design decision, not an afterthought.
+
+1.2 Mixing Responsibilities in Functions
+
+Mistake
+
+load_tasks() printing data
+
+Functions fixing data instead of assuming valid state
+
+Why it was wrong
+
+Made code harder to reason about
+
+Increased coupling between logic and UI
+
+Lesson
+Each function must have one clear responsibility.
+
+1.3 Broken ID Generation Logic
+
+Mistake
+
+id = len(tasks)
+
+
+Why it was wrong
+
+IDs collided after deletion
+
+Caused silent overwrites
+
+Lesson
+Identifiers must be:
+
+Unique
+
+Monotonic
+
+Never reused unintentionally
+
+1.4 Ignoring JSON Type Conversion
+
+Mistake
+
+Assuming JSON preserves integer keys
+
+Why it was wrong
+
+JSON converts object keys to strings
+
+Led to mismatched int vs str IDs
+
+Caused silent logic failures
+
+Lesson
+External data must always be normalized immediately after loading.
+
+1.5 Trusting User Input
+
+Mistake
+
+choice = int(input())
+
+
+Why it was wrong
+
+Program crashed on invalid input
+
+Violated robustness requirements
+
+Lesson
+User input is hostile by default and must always be validated.
+
+1.6 Local Fixes Instead of Systemic Fixes
+
+Mistake
+
+Trying to cast IDs inside individual functions
+
+Adding one-off conversions
+
+Why it was wrong
+
+Increased complexity
+
+Created inconsistent state
+
+Lesson
+Fix problems at the boundary, not everywhere they appear.
+
+2. Core Learnings (Engineering-Level)
+2.1 State Ownership
+
+Memory is temporary
+
+Files are long-term state
+
+One component must own state explicitly
+
+Rule
+
+Always know where state lives and who controls it.
+
+2.2 Persistence Discipline
+
+Learning
+
+Persistence must happen after every mutation
+
+Not just on program exit
+
+Rule
+
+Memory and disk must never diverge.
+
+2.3 Normalize Early
+
+Learning
+
+External inputs (files, users, APIs) cannot be trusted
+
+Normalization simplifies all downstream logic
+
+Rule
+
+Normalize once, then assume correctness.
+
+2.4 “Working” Is Not “Correct”
+
+Learning
+
+Code can work while being logically unsafe
+
+Silent bugs are worse than crashes
+
+Rule
+
+Always ask: “What breaks this?”
+
+2.5 CLI Programs Must Loop, Not Recurse
+
+Learning
+
+Recursive menus lead to stack overflows
+
+Control flow should be explicit and linear
+
+Rule
+
+User interaction loops; logic does not recurse.
+
+3. Design Principles Established
+
+These principles will be reused in future projects:
+
+Single source of truth
+
+Clear function responsibilities
+
+Immediate persistence after mutation
+
+Boundary-based data validation
+
+Defensive programming
+
+Predictable data structures
+
+4. Known Limitations (Accepted for This Level)
+
+These were consciously not fixed yet:
+
+Task stored as list instead of structured object
+
+Hard-coded base directory
+
+UI logic mixed with business logic
+
+These are deferred to later projects involving:
+
+Abstractions
+
+Configuration
+
+Larger systems
+
+5. Final Takeaway
+
+Programming is not about writing code.
+Programming is about designing safe state transitions over time.
+
+This project shifted thinking from:
+
+“How do I write this?”
+to:
+
+“How does this system behave when things go wrong?”
